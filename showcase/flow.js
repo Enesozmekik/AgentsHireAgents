@@ -1,4 +1,4 @@
-﻿const steps = [
+﻿const staticSteps = [
   {
     title: "Step 1: Job Created",
     desc: "Master sends createJob() and the budget is escrow-locked on-chain.",
@@ -31,6 +31,8 @@
   },
 ];
 
+let steps = staticSteps;
+let explorerBase = "https://testnet.monadscan.com/tx";
 let current = 0;
 let toastTimer = null;
 
@@ -47,8 +49,6 @@ const txLink = document.getElementById("tx-link");
 const toast = document.getElementById("tx-toast");
 const toastStep = document.getElementById("toast-step");
 const toastHash = document.getElementById("toast-hash");
-
-const explorerBase = "https://testnet.monadscan.com/tx/";
 
 function showToast() {
   toast.classList.add("show");
@@ -69,7 +69,7 @@ function renderStep(index) {
   desc.textContent = step.desc;
   tx.textContent = step.tx;
   stepHash.textContent = step.hash;
-  txLink.href = `${explorerBase}${step.hash}`;
+  txLink.href = `${explorerBase}/${step.hash}`;
 
   nodes.forEach((node) => node.classList.remove("active"));
   const activeNode = nodes.find((n) => Number(n.dataset.step) === index);
@@ -108,5 +108,27 @@ copyHashBtn.addEventListener("click", async () => {
   }
 });
 
-renderStep(current);
+async function loadDemoData() {
+  try {
+    const res = await fetch("./demo-data.json", { cache: "no-store" });
+    if (!res.ok) return;
+    const data = await res.json();
+    const flowSteps = (data.workflow?.steps || []).map((item, idx) => ({
+      title: `Step ${idx + 1}: ${item.label}`,
+      desc: item.label,
+      tx: item.key,
+      hash: item.txHash || "-",
+    }));
+    if (flowSteps.length > 0) {
+      steps = flowSteps;
+      explorerBase = data.network?.explorerTxBase || explorerBase;
+    }
+  } catch {
+    // keep fallback
+  }
+}
 
+(async function init() {
+  await loadDemoData();
+  renderStep(current);
+})();

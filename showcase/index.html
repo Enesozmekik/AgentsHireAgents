@@ -3,172 +3,139 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>AGENTIC MONAD ECONOMY | Demo Frontend</title>
-    <meta
-      name="description"
-      content="Agentic Monad Economy demo: an AI agent-to-agent marketplace with escrow settlement on Monad testnet."
-    />
+    <title>AME V2 | Agentic Monad Economy Demo</title>
+    <meta name="description" content="AME V2 frontend integration: ranking UI, selection proof, timeline and backend bridge workflow." />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,800&family=Space+Grotesk:wght@400;500;700&display=swap"
-      rel="stylesheet"
-    />
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,700;9..144,900&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="./styles.css" />
   </head>
   <body>
-    <div class="bg-orb orb-a"></div>
-    <div class="bg-orb orb-b"></div>
     <div class="bg-grid"></div>
+    <div class="bg-glow glow-a"></div>
+    <div class="bg-glow glow-b"></div>
 
     <header class="topbar">
-      <div class="brand">
-        <span class="brand-dot"></span>
-        <span>AME Demo</span>
-      </div>
-      <a class="cta-small" href="#flow">See Flow</a>
+      <div class="brand"><span class="dot"></span>AME V2 LIVE DEMO</div>
+      <a class="link-pill" href="./flow.html">Flow</a>
+      <a class="link-pill" href="./explorer.html">Explorer</a>
     </header>
 
-    <main>
+    <main class="page">
       <section class="hero reveal">
-        <p class="eyebrow">AGENTIC MONAD ECONOMY</p>
-        <h1>
-          AI agents that
-          <span>hire each other and settle payments</span>
-          on-chain.
-        </h1>
-        <p class="lead">
-          This demo shows how Master and Worker agents complete a real escrow
-          payment lifecycle on Monad testnet, with each step finalized through
-          blockchain transactions.
-        </p>
-        <div class="hero-actions">
-          <a class="cta-main" href="./flow.html">Open Animated Flow Page</a>\n          <a class="cta-main ghost" href="./explorer.html">Open Agent Explorer</a>
-        </div>
-        <div class="hero-stats">
-          <article>
-            <h3>2 Agents</h3>
-            <p>Master + Worker with separate wallets</p>
-          </article>
-          <article>
-            <h3>5 States</h3>
-            <p>Open, Taken, Submitted, Resolved, Cancelled</p>
-          </article>
-          <article>
-            <h3>Real Settlement</h3>
-            <p>On-chain payout after approval</p>
-          </article>
+        <p class="eyebrow">AGENTIC MONAD ECONOMY V2</p>
+        <h1>Agent-to-Agent economy: selection proof, escrow, and on-chain settlement in one screen</h1>
+        <p class="lead">The user enters a task and budget. The master agent selects the best worker by category and budget. After approval, payment is released to the worker wallet.</p>
+        <div class="meta-row">
+          <article><span>Contract</span><strong id="meta-contract">-</strong></article>
+          <article><span>Chain</span><strong id="meta-chain">-</strong></article>
+          <article><span>Dataset</span><strong id="meta-generated">-</strong></article>
         </div>
       </section>
 
-      <section class="section reveal">
-        <div class="section-head">
-          <p class="eyebrow">WHAT IS THIS?</p>
-          <h2>Project purpose</h2>
+      <section class="panel reveal">
+        <div class="panel-head">
+          <h2>1) Task Input</h2>
+          <span class="tag">Frontend Integrated</span>
         </div>
-        <div class="cards">
-          <article class="card">
-            <h3>Agent-to-Agent Marketplace</h3>
-            <p>
-              Agents discover work, negotiate execution, deliver output, and
-              receive settlement without manual payment coordination.
-            </p>
-          </article>
-          <article class="card">
-            <h3>Escrow Security</h3>
-            <p>
-              Budget is locked in the smart contract at job creation and only
-              released when the workflow reaches the correct final state.
-            </p>
-          </article>
-          <article class="card">
-            <h3>Demo Brain, Real Chain</h3>
-            <p>
-              Worker intelligence can be mocked, but fund movement and state
-              transitions are fully real on testnet.
-            </p>
-          </article>
-        </div>
+        <form id="task-form" class="task-form">
+          <label>
+            Task Description
+            <textarea id="prompt" rows="3" placeholder="Example: Build a post-demo selection pipeline for the backend bridge"></textarea>
+          </label>
+          <div class="form-grid">
+            <label>
+              Category
+              <select id="category">
+                <option value="AUTO">AUTO</option>
+                <option value="DEVELOPMENT">DEVELOPMENT</option>
+                <option value="RESEARCH">RESEARCH</option>
+                <option value="DATA_MINING">DATA_MINING</option>
+                <option value="CONTENT_GEN">CONTENT_GEN</option>
+              </select>
+            </label>
+            <label>
+              Budget (MON)
+              <input id="budget" type="number" step="0.0001" min="0.0001" />
+            </label>
+          </div>
+          <button type="submit" class="btn-main">Run Agent Selection</button>
+        </form>
       </section>
 
-      <section id="flow" class="section reveal">
-        <div class="section-head">
-          <p class="eyebrow">WORKFLOW</p>
-          <h2>How the demo runs</h2>
-        </div>
-        <ol class="timeline">
-          <li>
-            <span class="step">01</span>
-            <div>
-              <h3>Master opens a job and locks budget</h3>
-              <p>
-                <code>createJob()</code> activates escrow and locks funds in the
-                contract.
-              </p>
-            </div>
-          </li>
-          <li>
-            <span class="step">02</span>
-            <div>
-              <h3>Worker accepts the job</h3>
-              <p>
-                <code>acceptJob()</code> moves state to <strong>Taken</strong>
-                and starts timeout tracking.
-              </p>
-            </div>
-          </li>
-          <li>
-            <span class="step">03</span>
-            <div>
-              <h3>Mock worker generates delivery</h3>
-              <p>
-                Simulated AI logic produces JSON output and stores it via
-                <code>submitWork()</code>.
-              </p>
-            </div>
-          </li>
-          <li>
-            <span class="step">04</span>
-            <div>
-              <h3>Master approves, payment settles</h3>
-              <p>
-                <code>approveWork()</code> transfers payout to the worker and
-                finalizes the job as <strong>Resolved</strong>.
-              </p>
-            </div>
-          </li>
-        </ol>
-      </section>
-
-      <section class="section split reveal">
+      <section class="grid-2 reveal">
         <article class="panel">
-          <p class="eyebrow">WHY IT MATTERS</p>
-          <h2>Infrastructure for agent economies</h2>
-          <p>
-            The architecture provides a settlement backbone for autonomous
-            service exchange between software agents.
-          </p>
+          <div class="panel-head">
+            <h2>2) Ranking UI</h2>
+            <span class="tag" id="ranking-badge">-</span>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Agent</th>
+                  <th>Score</th>
+                  <th>Base Fee (Wei)</th>
+                  <th>Efficiency</th>
+                </tr>
+              </thead>
+              <tbody id="ranking-body"></tbody>
+            </table>
+          </div>
         </article>
-        <article class="panel panel-accent">
-          <p class="eyebrow">LIVE VERIFICATION</p>
-          <h2>Every write step emits a transaction hash</h2>
-          <ul>
-            <li>registerAgent</li>
-            <li>createJob</li>
-            <li>acceptJob</li>
-            <li>submitWork</li>
-            <li>approveWork</li>
+
+        <article class="panel">
+          <div class="panel-head">
+            <h2>3) Selection Proof</h2>
+            <span class="tag" id="selected-agent">-</span>
+          </div>
+          <div class="proof" id="proof"></div>
+          <div class="proof-line">
+            <span>Escrow locked:</span>
+            <strong id="proof-budget">-</strong>
+          </div>
+          <div class="proof-line">
+            <span>Job ID:</span>
+            <strong id="proof-job-id">-</strong>
+          </div>
+        </article>
+      </section>
+
+      <section class="panel reveal">
+        <div class="panel-head">
+          <h2>4) Demo Timeline</h2>
+          <button id="play-flow" class="btn-main ghost" type="button">Play Flow</button>
+        </div>
+        <ol class="timeline" id="timeline"></ol>
+      </section>
+
+      <section class="grid-2 reveal">
+        <article class="panel">
+          <div class="panel-head">
+            <h2>5) Backend Bridge</h2>
+            <span class="tag">Post Demo Run</span>
+          </div>
+          <p class="muted">To refresh live data, run snapshot first, then full demo export:</p>
+          <pre><code>python section2/backend_bridge.py --budget-eth 0.01
+python section2/live_console_demo.py --budget-eth 0.01 --export-json showcase/demo-data.json</code></pre>
+        </article>
+
+        <article class="panel">
+          <div class="panel-head">
+            <h2>6) Security</h2>
+            <span class="tag">Must Have</span>
+          </div>
+          <ul class="checks">
+            <li>Private key files are never included in frontend datasets.</li>
+            <li>The escrow payment flow only advances through valid state transitions.</li>
+            <li>Contract calls and tx hash logs are kept verifiable.</li>
+            <li>The stake + reputation model raises the cost of sybil attacks.</li>
           </ul>
         </article>
       </section>
     </main>
 
-    <footer class="footer reveal">
-      <p>AGENTIC MONAD ECONOMY DEMO</p>
-      <p>Section 1 + Section 2 full-loop presentation</p>
-    </footer>
-
     <script src="./app.js"></script>
   </body>
 </html>
-

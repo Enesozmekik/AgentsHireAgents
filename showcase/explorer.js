@@ -1,16 +1,12 @@
-﻿const explorerBase = "https://testnet.monadscan.com/tx/";
+﻿const explorerBaseFallback = "https://testnet.monadscan.com/tx";
 
-const master = "0xa91625B029cE67100dEc0CE0d356E70337fE5082";
-const worker = "0x08Db40CAb73737DED8B6D90cBEB7d661dc10cFc0";
-const contract = "0x30e335f649d53fB885E83C6d2E3517B4E0E029AF";
-
-const events = [
+const staticEvents = [
   {
     status: "Open",
     action: "Job Created",
     summary: "Master opened a new task for Worker and locked 1.00 MON in escrow.",
-    from: master,
-    to: contract,
+    from: "0xa91625B029cE67100dEc0CE0d356E70337fE5082",
+    to: "0xFA87ee879375bb43d414387d3De1D899ea20fe0F",
     tx: "0xb6771cbe2a4821575a98ad73819df741c3eacae19f8e7ff4f5f1d56fa8823a94",
     badge: "Escrow Locked",
     escrow: "1.0000 MON",
@@ -20,9 +16,9 @@ const events = [
   {
     status: "Taken",
     action: "Job Accepted",
-    summary: "Worker accepted the task. Timeout clock started.",
-    from: worker,
-    to: contract,
+    summary: "Worker accepted the task.",
+    from: "0x0CACF914624BBe5c43c45727b877806C461fAf02",
+    to: "0xFA87ee879375bb43d414387d3De1D899ea20fe0F",
     tx: "0xe533d1649dbd6c6b1659013603f349cf29b8dc2cc3fec0584b82f4e6191cd897",
     badge: "State Update",
     escrow: "1.0000 MON",
@@ -33,8 +29,8 @@ const events = [
     status: "Submitted",
     action: "Work Submitted",
     summary: "Worker submitted delivery payload (mock JSON output) on-chain.",
-    from: worker,
-    to: contract,
+    from: "0x0CACF914624BBe5c43c45727b877806C461fAf02",
+    to: "0xFA87ee879375bb43d414387d3De1D899ea20fe0F",
     tx: "0xc4c576f9d61578b85ea40287baae95b4892e64c2767c1de6ef4a728dcc02aa22",
     badge: "Delivery Posted",
     escrow: "1.0000 MON",
@@ -44,9 +40,9 @@ const events = [
   {
     status: "Resolved",
     action: "Work Approved",
-    summary: "Master approved output. Escrow released to Worker (1% protocol fee retained).",
-    from: master,
-    to: contract,
+    summary: "Master approved output. Escrow released to Worker.",
+    from: "0xa91625B029cE67100dEc0CE0d356E70337fE5082",
+    to: "0xFA87ee879375bb43d414387d3De1D899ea20fe0F",
     tx: "0x4d80914c12f8b3da568994edc7fd62e09b7240d4de77c8b32cadd3647b96fcd2",
     badge: "Payment Triggered",
     escrow: "0.0000 MON",
@@ -55,6 +51,8 @@ const events = [
   },
 ];
 
+let events = staticEvents;
+let explorerBase = explorerBaseFallback;
 let current = 0;
 let autoTimer = null;
 
@@ -113,7 +111,7 @@ function renderState() {
   txFrom.textContent = event.from;
   txTo.textContent = event.to;
   txHash.textContent = event.tx;
-  txLink.href = `${explorerBase}${event.tx}`;
+  txLink.href = `${explorerBase}/${event.tx}`;
 }
 
 function render() {
@@ -145,4 +143,40 @@ autoBtn.addEventListener("click", () => {
   autoBtn.textContent = "Stop";
 });
 
-render();
+async function loadDemoData() {
+  try {
+    const res = await fetch("./demo-data.json", { cache: "no-store" });
+    if (!res.ok) return;
+    const data = await res.json();
+    const taskBudget = data.task?.budgetEth || "0.0";
+    const selected = data.selectionProof?.selectedAgent || "0x0000000000000000000000000000000000000000";
+    const contract = data.network?.contractAddress || "0x0000000000000000000000000000000000000000";
+    explorerBase = data.network?.explorerTxBase || explorerBase;
+
+    const statusMap = ["Open", "Taken", "Submitted", "Resolved", "Resolved"];
+    const badgeMap = ["Escrow Locked", "State Update", "Delivery Posted", "Payment Triggered", "Feedback Updated"];
+    events = (data.workflow?.steps || []).map((step, idx) => ({
+      status: statusMap[idx] || "Resolved",
+      action: step.key,
+      summary: step.label,
+      from: idx === 0 || idx === 3 || idx === 4 ? "MASTER" : selected,
+      to: contract,
+      tx: step.txHash || "-",
+      badge: badgeMap[idx] || "Step",
+      escrow: idx < 3 ? `${taskBudget} MON` : "0.0000 MON",
+      masterDelta: `-${taskBudget} MON`,
+      workerDelta: idx < 3 ? "+0.0000 MON" : "+settled",
+    }));
+
+    if (!events.length) {
+      events = staticEvents;
+    }
+  } catch {
+    events = staticEvents;
+  }
+}
+
+(async function init() {
+  await loadDemoData();
+  render();
+})();

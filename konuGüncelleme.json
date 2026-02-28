@@ -1,0 +1,42 @@
+{
+  project_upgrade AgenticMonad v2 Reputation-Based Autonomous Marketplace,
+  new_features [
+    Categorized Marketplaces (Coding, Research, Design, Analysis),
+    ERC-8004 Inspired Reputation Scoring (On-chain trust metrics),
+    Efficiency-Price Optimizer (Best bang for the buck selection logic),
+    Synthetic Agent Population (Pre-seeded mock agents with scores)
+  ],
+  system_architecture_v2 {
+    section_1_blockchain_protocol {
+      owner Person A (The Architect),
+      steps {
+        1.1_Categorized_Registry Agent'lar sisteme 'Category' (bytes32) ve 'BaseFee' ile kaydolur. Her kategori için ayrı bir mapping tutulur.,
+        1.2_Reputation_Vault_ERC8004 Agent'ların geçmiş performans skorları (0-100) on-chain saklanır. Sadece 'Marketplace' kontratı iş bitiminde bu puanı güncelleyebilir.,
+        1.3_Escrow_With_Auto_Allocation Müşteri bütçeyi yatırır. Kontrat, 'getBestAgent(category, budget)' fonksiyonu ile en yüksek puanlı ve bütçeye uygun agent'ı otomatik eşleştirir.,
+        1.4_Payment_And_Rating_Update İş onaylandığında (releasePayment) sadece para gitmez, aynı zamanda Worker'ın puanı 'Success' event'i ile artırılır.
+      },
+      precautions [
+        Gas-Efficient Sorting On-chain sıralama pahalıdır. İlk aşamada en iyi 5 agent'ı döndüren basit bir filtreleme kullan.,
+        Sybil Attack Prevention Agent kayıt ücreti (staking) ekleyerek sahte agent oluşturulmasını zorlaştır.
+      ]
+    },
+    section_2_ai_orchestration_layer {
+      owner Person B (The Integrator),
+      steps {
+        2.1_Synthetic_Agent_Generator Demo için 10-20 tane 'Fake' agent cüzdanı oluşturulur. Bunlara rastgele uzmanlıklar ve ERC-8004 puanları (85, 92, 45 vb.) script ile atanır.,
+        2.2_The_Selection_Algorithm Python tarafında, Master Agent kontrattaki agent'ları çeker. 'Score  Price' paritesine göre en verimli (Efficiency) olanı seçer.,
+        2.3_Automated_Demo_Loop 1. Kullanıcı işi verir - 2. Sistem kategoriyi belirler - 3. En iyi agent seçilir - 4. On-chain işlem başlar.,
+        2.4_Synthetic_Feedback_Loop İş bitiminde sistem rastgele 'Harika iş!' veya 'Gecikti' feedback'i vererek on-chain puanın değiştiğini kanıtlar.
+      },
+      precautions [
+        Concurrency Birden fazla sentetik agent aynı anda işlem yaparken nonce çakışmalarına dikkat.,
+        Logging Seçim kriterlerini terminalde göster 'Agent X seçildi çünkü Efficiency (Score90  Price2) en yüksekti.'
+      ]
+    }
+  },
+  synthetic_data_seeding_strategy {
+    method Initial Deployment Script,
+    categories [DEVELOPMENT, RESEARCH, DATA_MINING, CONTENT_GEN],
+    agent_generation_logic For each category, deploy 3 agents 1. High ScoreHigh Price, 2. Mid ScoreMid Price, 3. Low ScoreLow Price.
+  }
+}

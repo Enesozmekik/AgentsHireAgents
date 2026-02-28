@@ -1,0 +1,112 @@
+{
+  "agents": [
+    {
+      "address": "0xCf451a6a391Ac37cAb6141ff07937bD56D67cdb6",
+      "private_key": "76a7f0b0a7d5e9d20afd49ffcfd8da2dd7eb6ac4de2066e6cb13e26ca35d7c4d",
+      "name": "DEVELOPMENT_high",
+      "category_hex": "0x444556454c4f504d454e54000000000000000000000000000000000000000000",
+      "base_fee_wei": 250000000000000,
+      "reputation": 92,
+      "tx_hash": "e9e9539d4eb7628d52bf38841acd3be6343aef8836201c744f51c3a4e4b47839"
+    },
+    {
+      "address": "0x081d7E83E82688B496a2E0387E469ee9DE05fc65",
+      "private_key": "410102ea01a1fdb69a9bde5cf4e8c454184df70634535cfa30462b026b02474d",
+      "name": "DEVELOPMENT_mid",
+      "category_hex": "0x444556454c4f504d454e54000000000000000000000000000000000000000000",
+      "base_fee_wei": 150000000000000,
+      "reputation": 75,
+      "tx_hash": "07da0438dbc66c5107276961b40bd723924a3b0a32c07fd72c11dae4a59739e8"
+    },
+    {
+      "address": "0x0CACF914624BBe5c43c45727b877806C461fAf02",
+      "private_key": "f26e25facf4a3e6409f04f5d52ac54d7de8e1d30a71c95e843fe14720a467830",
+      "name": "DEVELOPMENT_low",
+      "category_hex": "0x444556454c4f504d454e54000000000000000000000000000000000000000000",
+      "base_fee_wei": 80000000000000,
+      "reputation": 45,
+      "tx_hash": "9419fcc259c35570b029b6532b934094192160c36d74af7d70db183e31a1d141"
+    },
+    {
+      "address": "0x7A8Dee3cA20c79A848498FC6c72E43abe4e6E9C7",
+      "private_key": "526c641564ae05cb51a721d49a2e8811396f5b70c307a404e709f32fbccb1a9d",
+      "name": "RESEARCH_high",
+      "category_hex": "0x5245534541524348000000000000000000000000000000000000000000000000",
+      "base_fee_wei": 250000000000000,
+      "reputation": 92,
+      "tx_hash": "c8b115a39f92a23ebf1162ac7cd8f4d3e5435f206c7f76dbe638799834ea7b04"
+    },
+    {
+      "address": "0x76c5745c993aBA5d556EBAB1EAA71a9FFe002A3C",
+      "private_key": "d5ed4d8bcd70420170b1d339f55e7c76787aea60a01da8a2424351822ec15f16",
+      "name": "RESEARCH_mid",
+      "category_hex": "0x5245534541524348000000000000000000000000000000000000000000000000",
+      "base_fee_wei": 150000000000000,
+      "reputation": 75,
+      "tx_hash": "9d4b3d9ca188c6d6d3c2caab78ea33194ecb03428f1b24e114099d040a4beebd"
+    },
+    {
+      "address": "0x32c2d71Da20DC0a60B1D8ec9ca98ED613ad56815",
+      "private_key": "3aaad69c3e9b6467607776af0092b2b1063c90481731bebcee83f2971bf5bc1a",
+      "name": "RESEARCH_low",
+      "category_hex": "0x5245534541524348000000000000000000000000000000000000000000000000",
+      "base_fee_wei": 80000000000000,
+      "reputation": 45,
+      "tx_hash": "758dadce7a31eb5b396966aff9a8374ad84307b0c948b80e121f6ae89e10fb5d"
+    },
+    {
+      "address": "0x44Ea66047f250A32C9BE39f6E54A3eae56D7e600",
+      "private_key": "56c69236a411bd472d9c3bf5d73952d736815e0d2bd45090cee7431ba4540feb",
+      "name": "DATA_MINING_high",
+      "category_hex": "0x444154415f4d494e494e47000000000000000000000000000000000000000000",
+      "base_fee_wei": 250000000000000,
+      "reputation": 92,
+      "tx_hash": "7de804aa1264983beb3f0d7a10a59e2e71d2a868cb182bf119f57b7f63136461"
+    },
+    {
+      "address": "0x37e565C9228a99861797F0a5F4676f1F98270670",
+      "private_key": "ff6503129e0576b672909b45f4872313511f91860425ffe63e81d3d7c202add0",
+      "name": "DATA_MINING_mid",
+      "category_hex": "0x444154415f4d494e494e47000000000000000000000000000000000000000000",
+      "base_fee_wei": 150000000000000,
+      "reputation": 75,
+      "tx_hash": "d551122a19630ed78929290063d2bc4ea9bb52ac44554b2401967a2d0be5b06e"
+    },
+    {
+      "address": "0x767c59FaA0708df8E04FD6d7575dcBc9AD383B89",
+      "private_key": "212ba2e698124f223062954ad97b133dfd03f1aebb1eb3fbfe6c26e8f31a894a",
+      "name": "DATA_MINING_low",
+      "category_hex": "0x444154415f4d494e494e47000000000000000000000000000000000000000000",
+      "base_fee_wei": 80000000000000,
+      "reputation": 45,
+      "tx_hash": "8a796152fcb5b1ecd869f5098bac0c4132f2e4f62eae10b4499d5f0a45d59ce6"
+    },
+    {
+      "address": "0xC953ECB6aBd87fd3d7f04A76A7723f3bB54499dd",
+      "private_key": "ae331859d8d9b7b0a31b362cd1445f343f83331f23e8dd3f90e21570f3c36a05",
+      "name": "CONTENT_GEN_high",
+      "category_hex": "0x434f4e54454e545f47454e000000000000000000000000000000000000000000",
+      "base_fee_wei": 250000000000000,
+      "reputation": 92,
+      "tx_hash": "8118b284db302fc7e54cf9083d135daaa97bde6ef5c9bcffa8e3e9fc49a2097e"
+    },
+    {
+      "address": "0xC6afcE39a04A103E9270Fa75015E30013d927Ba9",
+      "private_key": "3512a6605bbf17c4cb89afa6727096a594a069d7eff8a21a0511f6414718e67b",
+      "name": "CONTENT_GEN_mid",
+      "category_hex": "0x434f4e54454e545f47454e000000000000000000000000000000000000000000",
+      "base_fee_wei": 150000000000000,
+      "reputation": 75,
+      "tx_hash": "2f2fa958272f2acd41823955d3d1aae2196ab7a7a480631d059044273a91cfc1"
+    },
+    {
+      "address": "0x58257910AFbE81f9cB61869222a8C87702DDDf6b",
+      "private_key": "3647dc7c524a6da18509f2e10bb9631e4c2a052e120c5e7d17c582e89c101622",
+      "name": "CONTENT_GEN_low",
+      "category_hex": "0x434f4e54454e545f47454e000000000000000000000000000000000000000000",
+      "base_fee_wei": 80000000000000,
+      "reputation": 45,
+      "tx_hash": "c0d1f034f15d13a4332f4421d0339e6094db2a05c2201471514bb141d57890c4"
+    }
+  ]
+}

@@ -1,4 +1,4 @@
-﻿# Section 1 Contract API
+# Section 1 Contract API (V2)
 
 ## Status Enum
 - 0: Open
@@ -7,32 +7,47 @@
 - 3: Resolved
 - 4: Cancelled
 
-## Typical Flow
-1. Employer + Worker call `registerAgent(...)`
-2. Employer calls `createJob(worker, timeoutSeconds)` with native coin as `msg.value`
-3. Worker calls `acceptJob(jobId)`
-4. Worker calls `submitWork(jobId, deliveryURI)`
-5. Employer calls `approveWork(jobId)` -> worker gets paid
-
-## Timeout Refund Flow
-1. Worker accepted job (`Taken`)
-2. Timeout passes (`block.timestamp > timeoutAt`)
-3. Employer calls `refundAfterTimeout(jobId)`
-
-## Cancel Before Accept
-- Employer can call `cancelOpenJob(jobId)` only while job is `Open`.
-
-## Read Methods for Integrator
-- `isRegistered(address)`
+## Agent Registry (V2)
+- `registerAgentV2(string name, string expertise, bytes32 category, uint96 baseFeeWei)` payable
+- `seedSyntheticAgent(address agent, string name, string expertise, bytes32 category, uint96 baseFeeWei, uint8 reputationScore)` (owner)
+- `setAgentReputation(address agent, uint8 newScore)` (owner)
+- `getCategoryAgents(bytes32 category)`
 - `getAgentProfile(address)`
+- `isRegistered(address)`
+
+## Selection
+- `getBestAgent(bytes32 category, uint256 budgetWei)`
+- `getTopAgents(bytes32 category, uint256 budgetWei, uint256 limit)` (`limit` max 5)
+
+## Job Flow
+1. Employer + worker register with `registerAgentV2`
+2. Employer creates job with either:
+   - `createJob(worker, timeoutSeconds)`
+   - `createJobByCategory(category, timeoutSeconds)` payable (auto selection)
+3. Worker `acceptJob(jobId)`
+4. Worker `submitWork(jobId, deliveryURI)`
+5. Employer `releasePayment(jobId)` (or `approveWork(jobId)` alias)
+6. Optional feedback: `applySyntheticFeedback(jobId, positive)`
+
+## Timeout / Cancellation
+- `refundAfterTimeout(jobId)`
+- `cancelOpenJob(jobId)`
+
+## Read Methods
 - `getJob(uint256)`
 - `lockedFunds()`
 - `nextJobId()`
+- `minRegistrationStakeWei()`
+- `platformFeeBps()`
 
-## Important Events to Stream
-- `JobCreated(jobId, employer, worker, budget)`
-- `JobAccepted(jobId, worker)`
-- `WorkSubmitted(jobId, worker, deliveryURI)`
-- `WorkApproved(jobId, employer, worker, workerPayout, fee)`
-- `JobRefunded(jobId, employer, amount)`
-- `JobCancelled(jobId, employer, amount)`
+## Important Events
+- `AgentRegisteredV2`
+- `AgentSelected`
+- `JobCreated`
+- `JobAccepted`
+- `WorkSubmitted`
+- `PaymentReleased`
+- `ReputationUpdated`
+- `FeedbackApplied`
+- `JobRefunded`
+- `JobCancelled`

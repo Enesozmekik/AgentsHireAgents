@@ -1,0 +1,155 @@
+{
+  "generatedAt": "2026-02-28T15:03:55.162321+00:00",
+  "network": {
+    "chainId": 10143,
+    "contractAddress": "0xFA87ee879375bb43d414387d3De1D899ea20fe0F"
+  },
+  "task": {
+    "prompt": "Build a backend bridge for post-demo selection run.",
+    "category": "DEVELOPMENT",
+    "budgetWei": 10000000000000000,
+    "budgetEth": 0.01,
+    "jobId": null
+  },
+  "ranking": [
+    {
+      "address": "0x0CACF914624BBe5c43c45727b877806C461fAf02",
+      "category": "DEVELOPMENT",
+      "baseFeeWei": 80000000000000,
+      "reputation": 45,
+      "efficiency": 5.625e-13
+    },
+    {
+      "address": "0x08Db40CAb73737DED8B6D90cBEB7d661dc10cFc0",
+      "category": "DEVELOPMENT",
+      "baseFeeWei": 100000000000000,
+      "reputation": 52,
+      "efficiency": 5.2e-13
+    },
+    {
+      "address": "0x081d7E83E82688B496a2E0387E469ee9DE05fc65",
+      "category": "DEVELOPMENT",
+      "baseFeeWei": 150000000000000,
+      "reputation": 75,
+      "efficiency": 5e-13
+    },
+    {
+      "address": "0xa91625B029cE67100dEc0CE0d356E70337fE5082",
+      "category": "DEVELOPMENT",
+      "baseFeeWei": 100000000000000,
+      "reputation": 50,
+      "efficiency": 5e-13
+    },
+    {
+      "address": "0xCf451a6a391Ac37cAb6141ff07937bD56D67cdb6",
+      "category": "DEVELOPMENT",
+      "baseFeeWei": 250000000000000,
+      "reputation": 92,
+      "efficiency": 3.68e-13
+    },
+    {
+      "address": "0x32c2d71Da20DC0a60B1D8ec9ca98ED613ad56815",
+      "category": "RESEARCH",
+      "baseFeeWei": 80000000000000,
+      "reputation": 45,
+      "efficiency": 5.625e-13
+    },
+    {
+      "address": "0x76c5745c993aBA5d556EBAB1EAA71a9FFe002A3C",
+      "category": "RESEARCH",
+      "baseFeeWei": 150000000000000,
+      "reputation": 75,
+      "efficiency": 5e-13
+    },
+    {
+      "address": "0x7A8Dee3cA20c79A848498FC6c72E43abe4e6E9C7",
+      "category": "RESEARCH",
+      "baseFeeWei": 250000000000000,
+      "reputation": 92,
+      "efficiency": 3.68e-13
+    },
+    {
+      "address": "0x767c59FaA0708df8E04FD6d7575dcBc9AD383B89",
+      "category": "DATA_MINING",
+      "baseFeeWei": 80000000000000,
+      "reputation": 45,
+      "efficiency": 5.625e-13
+    },
+    {
+      "address": "0x37e565C9228a99861797F0a5F4676f1F98270670",
+      "category": "DATA_MINING",
+      "baseFeeWei": 150000000000000,
+      "reputation": 75,
+      "efficiency": 5e-13
+    },
+    {
+      "address": "0x44Ea66047f250A32C9BE39f6E54A3eae56D7e600",
+      "category": "DATA_MINING",
+      "baseFeeWei": 250000000000000,
+      "reputation": 92,
+      "efficiency": 3.68e-13
+    },
+    {
+      "address": "0x58257910AFbE81f9cB61869222a8C87702DDDf6b",
+      "category": "CONTENT_GEN",
+      "baseFeeWei": 80000000000000,
+      "reputation": 45,
+      "efficiency": 5.625e-13
+    },
+    {
+      "address": "0xC6afcE39a04A103E9270Fa75015E30013d927Ba9",
+      "category": "CONTENT_GEN",
+      "baseFeeWei": 150000000000000,
+      "reputation": 75,
+      "efficiency": 5e-13
+    },
+    {
+      "address": "0xC953ECB6aBd87fd3d7f04A76A7723f3bB54499dd",
+      "category": "CONTENT_GEN",
+      "baseFeeWei": 250000000000000,
+      "reputation": 92,
+      "efficiency": 3.68e-13
+    }
+  ],
+  "selectionProof": {
+    "selectedAgent": "0x0CACF914624BBe5c43c45727b877806C461fAf02",
+    "selectedBaseFeeWei": 80000000000000,
+    "selectedReputation": 45,
+    "selectedEfficiency": 5.625e-13,
+    "reason": "Agent 0x0CACF914624BBe5c43c45727b877806C461fAf02 selected because efficiency=45/80000000000000 is highest under budget 10000000000000000."
+  },
+  "workflow": {
+    "steps": [
+      {
+        "key": "createJobByCategory",
+        "label": "Budget escrow lock (pending demo run)",
+        "status": "pending",
+        "txHash": ""
+      },
+      {
+        "key": "acceptJob",
+        "label": "Worker accept (pending demo run)",
+        "status": "pending",
+        "txHash": ""
+      },
+      {
+        "key": "submitWork",
+        "label": "Submission (pending demo run)",
+        "status": "pending",
+        "txHash": ""
+      },
+      {
+        "key": "releasePayment",
+        "label": "Payment release (pending demo run)",
+        "status": "pending",
+        "txHash": ""
+      },
+      {
+        "key": "applySyntheticFeedback",
+        "label": "Feedback update (pending demo run)",
+        "status": "pending",
+        "txHash": ""
+      }
+    ]
+  }
+}

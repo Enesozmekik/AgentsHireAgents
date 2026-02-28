@@ -7,7 +7,9 @@
     "compile": "hardhat compile",
     "test": "hardhat test",
     "deploy:local": "hardhat run scripts/deploy.js --network localhost",
-    "deploy:monad": "hardhat run scripts/deploy.js --network monadTestnet"
+    "deploy:monad": "hardhat run scripts/deploy.js --network monadTestnet",
+    "deploy:local:v2": "set AME_CONTRACT_VERSION=v2&& hardhat run scripts/deploy.js --network localhost",
+    "deploy:monad:v2": "set AME_CONTRACT_VERSION=v2&& hardhat run scripts/deploy.js --network monadTestnet"
   },
   "devDependencies": {
     "@nomicfoundation/hardhat-toolbox": "^6.0.0",

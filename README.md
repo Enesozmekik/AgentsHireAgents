@@ -1,71 +1,78 @@
-﻿# AGENTIC MONAD ECONOMY (AME) - Backend (Section 1)
+# AGENTIC MONAD ECONOMY (AME)
 
-This repository includes the smart contract layer for Section 1:
+This repository now includes two smart contract tracks:
 
-- Agent registry
-- Job escrow with locked funds
-- Job lifecycle state machine
-- Settlement and timeout refund logic
+- V1: `contracts/AgenticMonadEconomy.sol`
+- V2: `contracts/AgenticMonadEconomyV2.sol`
 
-## Contract
-
-- `contracts/AgenticMonadEconomy.sol`
+V2 adds categorized marketplace routing, reputation-based selection, and synthetic feedback updates.
 
 ## Local Setup (Hardhat)
 
 1. Install dependencies:
-   - `npm install` (PowerShell policy issue varsa `npm.cmd install`)
+   - `npm install` (or `npm.cmd install` on PowerShell policy issues)
 2. Copy env template:
    - `copy .env.example .env`
 3. Compile:
-   - `npm run compile` (gerekirse `npm.cmd run compile`)
-4. Run tests:
-   - `npm test` (gerekirse `npm.cmd test`)
+   - `npm run compile`
+4. Test:
+   - `npm test`
 
 ## Deploy
 
-- Local node:
-  - Start node: `npx hardhat node` (gerekirse `npx.cmd hardhat node`)
-  - Deploy: `npm run deploy:local` (gerekirse `npm.cmd run deploy:local`)
-- Monad testnet:
-  - Fill `MONAD_RPC_URL` and `DEPLOYER_PRIVATE_KEY` in `.env`
-  - Deploy: `npm run deploy:monad` (gerekirse `npm.cmd run deploy:monad`)
+- V1 local:
+  - `npm run deploy:local`
+- V1 monad:
+  - `npm run deploy:monad`
+- V2 local:
+  - `npm run deploy:local:v2`
+- V2 monad:
+  - `npm run deploy:monad:v2`
 
-Deployment output (address + ABI) is written to:
+Deployment output is written to:
 
 - `deployments/<network>.json`
 
-## Notes for Section 2 Integration
+Artifact metadata includes:
+- `version`
+- `contract`
+- `address`
+- `abi`
 
-Expose and use these core functions from your Python/Web3 layer:
+## V2 Core Functions
 
-- `registerAgent(string name, string expertise)`
-- `createJob(address worker, uint64 timeoutSeconds)` payable
-- `acceptJob(uint256 jobId)`
-- `submitWork(uint256 jobId, string deliveryURI)`
-- `approveWork(uint256 jobId)`
-- `refundAfterTimeout(uint256 jobId)`
-- `cancelOpenJob(uint256 jobId)`
+- `registerAgentV2(name, expertise, category, baseFeeWei)` payable
+- `getBestAgent(category, budgetWei)`
+- `createJobByCategory(category, timeoutSeconds)` payable
+- `releasePayment(jobId)`
+- `applySyntheticFeedback(jobId, positive)`
 
-Useful views:
+## Section 2 Integration
 
-- `isRegistered(address)`
-- `getAgentProfile(address)`
-- `getJob(uint256)`
-- `lockedFunds()`
+Use scripts in `section2/` for:
 
-Events you can stream/log in terminal:
+- synthetic agent seeding
+- off-chain score/price ranking
+- full-loop terminal demo with tx hashes
+- frontend bridge JSON export for ranking/timeline UI
 
-- `AgentRegistered`
-- `JobCreated`
-- `JobAccepted`
-- `WorkSubmitted`
-- `WorkApproved`
-- `JobRefunded`
-- `JobCancelled`
+See:
 
-## Security/Safety
+- `section2/README.md`
+- `docs/section1-api.md`
 
-- Reentrancy protection applied on payment paths.
-- Access control checks for registered agents and role-specific methods.
-- Strict state machine transitions with custom errors.
+## Frontend Demo (Showcase)
+
+Open:
+
+- `showcase/index.html`
+
+The page includes:
+- task input (prompt/category/budget)
+- ranking UI (ERC8004 style score/baseFee efficiency)
+- selection proof panel
+- demo workflow timeline with tx hashes
+- backend bridge command block and security checklist
+
+Data source:
+- `showcase/demo-data.json` (written by `section2/backend_bridge.py` or `section2/live_console_demo.py`)

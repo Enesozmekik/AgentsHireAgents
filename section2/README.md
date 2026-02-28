@@ -1,9 +1,11 @@
-# Section 2 - Integration Scaffolds
+# Section 2 - Integration (V2)
 
-This folder includes starters for:
+This folder includes V2 orchestration scripts:
 
 - `agent_wallet_manager.py`
 - `monad_bridge.py`
+- `selection_engine.py`
+- `synthetic_agent_seed.py`
 - `bridge_demo.py`
 - `mock_worker_logic.py`
 - `live_console_demo.py`
@@ -21,63 +23,48 @@ This folder includes starters for:
 4. Run:
    - `python section2/agent_wallet_manager.py`
 
-Expected output includes:
-
-- RPC connection state
-- chain id
-- master/worker wallet addresses
-
-## Step 2.2 - MonadBridge quick check
+## Seed Synthetic Agents (V2)
 
 Prerequisite:
-
-- Deploy contract first (creates `deployments/monadTestnet.json`)
-
-Run:
-
-- `python section2/bridge_demo.py`
-
-What it does:
-
-- loads deployment ABI/address
-- initializes `MonadBridge`
-- prints contract address and `lockedFunds`
-- shows example write calls (`build -> sign -> send -> wait`) in comments
-
-## Step 2.3 - MockWorkerLogic quick check
+- Deploy V2 contract first.
 
 Run:
+- `python section2/synthetic_agent_seed.py --deployment deployments/monadTestnet.json`
 
-- `python section2/mock_worker_logic.py`
+Output:
+- `section2/synthetic_agents.private.json` with generated addresses and private keys.
 
-What it does:
+## Selection Logic
 
-- waits ~2-3 seconds to simulate work
-- produces structured JSON output
-- prints a demo delivery URI string you can pass to `submitWork`
+- `selection_engine.py` infers category from prompt and ranks candidates by efficiency: `score/baseFee`.
 
-## Step 2.4 - LiveConsole demo
+## Live Console Demo (V2)
 
 Run:
-
 - `python section2/live_console_demo.py --deployment deployments/monadTestnet.json`
 
 Optional flags:
-
 - `--budget-eth 0.01`
 - `--timeout-sec 120`
 - `--prompt "your task prompt"`
-
-Optional env:
-
-- `MONAD_EXPLORER_TX_BASE` (for tx link print)
+- `--category DEVELOPMENT`
 
 What it does:
+- registration check for master/worker
+- category inference + candidate ranking with reason log
+- `createJobByCategory` auto-selection
+- worker accepts, submits delivery
+- master releases payment
+- synthetic feedback updates reputation
+- prints tx hash for every write step
+- exports frontend-safe dataset to `showcase/demo-data.json` (no private keys)
 
-- master/worker registration check
-- create job with escrow lock
-- worker accept
-- mock worker generate delivery
-- submit work
-- approve work and settle payment
-- prints TX hash for every blockchain write
+## Backend Bridge Snapshot
+
+Use this command before demo run to publish category ranking + selection proof for frontend:
+
+- `python section2/backend_bridge.py --deployment deployments/monadTestnet.json --budget-eth 0.01`
+
+Then run live flow:
+
+- `python section2/live_console_demo.py --deployment deployments/monadTestnet.json --budget-eth 0.01 --export-json showcase/demo-data.json`

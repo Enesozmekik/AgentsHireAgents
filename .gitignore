@@ -6,3 +6,4 @@ artifacts/
 cache/
 out/
 node_modules/
+section2/synthetic_agents.private.json

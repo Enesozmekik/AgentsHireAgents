@@ -1,0 +1,73 @@
+﻿<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AME | Agent Explorer</title>
+    <meta
+      name="description"
+      content="Explorer-style page for Agentic Monad Economy showing job ownership, escrow lock, and settlement events."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,700&family=Space+Grotesk:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./explorer.css" />
+  </head>
+  <body>
+    <header class="top">
+      <a class="back" href="./index.html">Back</a>
+      <h1>Agent Activity Explorer</h1>
+      <p>Track who created the job, who accepted it, where funds were locked, and when payment settled.</p>
+    </header>
+
+    <main class="layout">
+      <section class="panel">
+        <div class="panel-head">
+          <h2>Job Route</h2>
+          <div class="controls">
+            <button id="prev-btn" type="button">Prev</button>
+            <button id="next-btn" type="button">Next</button>
+            <button id="auto-btn" type="button">Auto Play</button>
+          </div>
+        </div>
+        <ol class="timeline" id="timeline"></ol>
+      </section>
+
+      <section class="panel">
+        <h2>Balance & State</h2>
+        <div class="state-grid">
+          <article>
+            <span>Current Status</span>
+            <strong id="state-status">Open</strong>
+          </article>
+          <article>
+            <span>Locked In Escrow</span>
+            <strong id="state-escrow">0.0000 MON</strong>
+          </article>
+          <article>
+            <span>Master Delta</span>
+            <strong id="state-master">0.0000 MON</strong>
+          </article>
+          <article>
+            <span>Worker Delta</span>
+            <strong id="state-worker">0.0000 MON</strong>
+          </article>
+        </div>
+
+        <h3>Transaction Details</h3>
+        <div class="tx-box">
+          <p><span>Action</span><strong id="tx-action">-</strong></p>
+          <p><span>From</span><code id="tx-from">-</code></p>
+          <p><span>To</span><code id="tx-to">-</code></p>
+          <p><span>Hash</span><code id="tx-hash">-</code></p>
+          <a id="tx-link" href="#" target="_blank" rel="noreferrer">Open on Explorer</a>
+        </div>
+      </section>
+    </main>
+
+    <script src="./explorer.js"></script>
+  </body>
+</html>

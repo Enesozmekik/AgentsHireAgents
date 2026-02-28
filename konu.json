@@ -1,0 +1,79 @@
+{
+  "project_full_specs": {
+    "title": "AGENTIC MONAD ECONOMY (AME)",
+    "vision": "Autonomous Agent-to-Agent Marketplace utilizing Monad for high-frequency settlement.",
+    "concept_explanation": "İnsanların değil, AI Agent'ların birbirini 'Armut.com' mantığıyla bulup, pazarlık yapıp, işi teslim edip, ödemeyi Monad Testnet üzerinde gerçekleştirdiği bir ekosistem prototipidir.",
+    "is_demo_mode": {
+      "status": "TRUE",
+      "mock_strategy": "Agent beyinleri (AI Logic) statik promptlar veya basit API çağrıları ile simüle edilecek; ancak Blockchain etkileşimi (Para transferi, Escrow, State update) TAMAMEN GERÇEK VE CANLI olacaktır.",
+      "demo_objective": "Jüriye agent'ların kendi ekonomilerini Monad'ın hızıyla nasıl yönetebildiğini kanıtlamak."
+    }
+  },
+  "technical_architecture_deep_dive": {
+    "section_1_blockchain_protocol": {
+      "role_description": "Person A: The Smart Contract Architect. Sistemin anayasasını ve banka kasasını inşa eder.",
+      "implementation_details": {
+        "step_1_1_registry_system": {
+          "code_name": "AgentRegistry",
+          "details": "Her agent sisteme bir 'identity' ile kayıt olur. Mapping(address => AgentProfile) yapısı. Profil şunları içerir: name, expertise, reputation_score, total_jobs_completed.",
+          "requirement": "Sadece kayıtlı agent'lar pazaryerinde iş alabilir (Access Control)."
+        },
+        "step_1_2_atomic_escrow": {
+          "code_name": "JobEscrow",
+          "details": "Master Agent işi oluşturduğunda (createJob) bütçeyi (MONAD) bu fonksiyona yollar. Para kontratta kilitlenir. 'LockedFunds' değişkeni güncellenir.",
+          "event": "emit JobCreated(jobId, employer, budget);"
+        },
+        "step_1_3_state_machine_logic": {
+          "code_name": "JobLifecycle",
+          "details": "İşin 5 durumu vardır: 0:Open, 1:Taken, 2:Submitted, 3:Resolved, 4:Cancelled. Her fonksiyon (acceptJob, submitWork, approveWork) bu durumları günceller.",
+          "requirement": "require(currentStatus == ExpectedStatus) kontrolü asla atlanmamalı."
+        },
+        "step_1_4_monad_payment_settlement": {
+          "code_name": "Finalizer",
+          "details": "approveWork() çağrıldığında bütçe otomatik olarak Worker adresine transfer edilir (transfer/call).",
+          "failure_handling": "Eğer işçi 24 saat içinde işi teslim etmezse Master parayı geri çekebilir (Refund/Timeout logic)."
+        }
+      },
+      "person_a_precautions": [
+        "ReentrancyGuard: Ödeme fonksiyonunda 'call' kullanırken re-entry saldırısına karşı önlem al.",
+        "Gas Efficiency: Mapping'leri ve struct'ları optimize et (Monad hızlı ama kontrat temiz olmalı).",
+        "Ownership: Kritik parametreleri (fee vs.) sadece kontrat sahibinin değiştirebilmesi."
+      ]
+    },
+    "section_2_agent_orchestration_and_integration": {
+      "role_description": "Person B: The Agent Logic & Web3 Integrator. Robotları konuşturur ve onların ellerini blockchain'e sokar.",
+      "implementation_details": {
+        "step_2_1_multi_wallet_agent_setup": {
+          "code_name": "AgentWalletManager",
+          "details": "Her agent (Master ve Worker) için ayrı bir .env değişkeni tanımlanır. MASTER_PRIVATE_KEY ve WORKER_PRIVATE_KEY. Kod içinde Account nesneleri oluşturulur.",
+          "logic": "İki ayrı cüzdanın birbirine para gönderdiğini jüri terminalde görmeli."
+        },
+        "step_2_2_web3_gateway_wrapper": {
+          "code_name": "MonadBridge",
+          "details": "Contract fonksiyonlarını Python'dan çağırmak için wrapper. buildTransaction -> sign_transaction -> send_raw_transaction -> wait_for_transaction_receipt döngüsü.",
+          "feature": "İşlem başarılı olana kadar terminalde '⌛ Blockchain'e yazılıyor...' animasyonu."
+        },
+        "step_2_3_simulated_ai_labor": {
+          "code_name": "MockWorkerLogic",
+          "details": "Master Agent bir 'Prompt' gönderir. Worker Agent (Codex/LLM simülasyonu) 2-3 saniye bekler ve 'İş tamamlandı: [JSON Çıktısı]' üretir.",
+          "purpose": "Gerçek agent varmış hissi yaratmak."
+        },
+        "step_2_4_demo_terminal_dashboard": {
+          "code_name": "LiveConsole",
+          "details": "Rich veya Colorama kütüphanesiyle loglar. Master Agent: 'Bütçe kilitlendi', Worker: 'İşi aldım', Chain: 'Ödeme yapıldı'.",
+          "requirement": "Her adımda TX Hash (Transaction linki) ekrana basılmalı."
+        }
+      },
+      "person_b_precautions": [
+        "Nonce Management: Monad'da işlemler çok hızlı olduğu için 'pending' işlemleri beklemeden yenisini atarsan nonce hatası alırsın. Her tx'ten sonra makul bir bekleme koy.",
+        "Security: .env dosyasını asla git'e pushlama. Arkadaşına manuel ilet.",
+        "Logging: Blockchain hatalarını (revert mesajlarını) yakala ve terminalde anlaşılır şekilde göster."
+      ]
+    }
+  },
+  "integration_milestones": {
+    "phase_1": "Section 1.1 ve 1.2'nin yerel ağda test edilmesi.",
+    "phase_2": "Section 2.2'nin kontrat adresini alıp para kilitleme (Escrow) denemesi yapması.",
+    "phase_3": "Full-loop demo: Master iş verir -> Para kilitlenir -> Worker iş yapar -> Onaylanır -> Para geçer."
+  }
+}

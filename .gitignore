@@ -1,0 +1,8 @@
+﻿# Ignore secrets and build artifacts
+.env
+.env.*
+*.key
+artifacts/
+cache/
+out/
+node_modules/

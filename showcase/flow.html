@@ -1,0 +1,86 @@
+﻿<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AME | Animated Flow</title>
+    <meta name="description" content="Animated flow page for the Agentic Monad Economy demo." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,700&family=Space+Grotesk:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./flow.css" />
+  </head>
+  <body>
+    <div class="noise"></div>
+    <header class="flow-header">
+      <a class="back" href="./index.html">Back to Overview</a> <a class="back" href="./explorer.html">Open Agent Explorer</a>
+      <h1>Animated Settlement Flow</h1>
+      <p>Visual timeline of how jobs move from escrow lock to payment release.</p>
+    </header>
+
+    <main class="flow-main">
+      <section class="flow-canvas" aria-label="Animated workflow">
+        <div class="progress-rail" aria-hidden="true">
+          <div class="progress-fill" id="progress-fill"></div>
+          <div class="progress-dot" id="progress-dot"></div>
+        </div>
+
+        <div class="step-grid" id="step-grid">
+          <article class="node" data-step="0">
+            <span class="node-num">01</span>
+            <h3>Job Created</h3>
+            <p>Master locks funds in escrow.</p>
+          </article>
+          <article class="node" data-step="1">
+            <span class="node-num">02</span>
+            <h3>Worker Accepts</h3>
+            <p>State moves to Taken.</p>
+          </article>
+          <article class="node" data-step="2">
+            <span class="node-num">03</span>
+            <h3>Work Submitted</h3>
+            <p>Mock JSON delivery is posted.</p>
+          </article>
+          <article class="node" data-step="3">
+            <span class="node-num">04</span>
+            <h3>Approval</h3>
+            <p>Master approves result.</p>
+          </article>
+          <article class="node" data-step="4">
+            <span class="node-num">05</span>
+            <h3>Settlement</h3>
+            <p>Payout is transferred to Worker.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="flow-panel">
+        <h2 id="step-title">Step 1: Job Created</h2>
+        <p id="step-desc">Master submits createJob() and budget is escrow-locked.</p>
+        <div class="tx-box">
+          <span>Transaction Type</span>
+          <strong id="step-tx">createJob()</strong>
+          <span class="tx-label">Transaction Hash</span>
+          <code id="step-hash">-</code>
+          <div class="tx-actions">
+            <button id="copy-hash-btn" type="button">Copy Hash</button>
+            <a id="tx-link" href="#" target="_blank" rel="noreferrer">Open Explorer</a>
+          </div>
+        </div>
+        <button id="next-btn" type="button">Next Step</button>
+      </section>
+    </main>
+
+    <aside class="tx-toast" id="tx-toast" aria-live="polite">
+      <p class="tx-toast-title">Live Transaction</p>
+      <p class="tx-toast-step" id="toast-step">Step 1</p>
+      <code id="toast-hash">-</code>
+    </aside>
+
+    <script src="./flow.js"></script>
+  </body>
+</html>
+

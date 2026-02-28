@@ -1,0 +1,17 @@
+{
+  "name": "agentic-monad-economy-backend",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Section 1 smart contract backend for AGENTIC MONAD ECONOMY",
+  "scripts": {
+    "compile": "hardhat compile",
+    "test": "hardhat test",
+    "deploy:local": "hardhat run scripts/deploy.js --network localhost",
+    "deploy:monad": "hardhat run scripts/deploy.js --network monadTestnet"
+  },
+  "devDependencies": {
+    "@nomicfoundation/hardhat-toolbox": "^6.0.0",
+    "dotenv": "^16.6.1",
+    "hardhat": "^2.26.3"
+  }
+}

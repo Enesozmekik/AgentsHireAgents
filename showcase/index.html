@@ -1,0 +1,174 @@
+﻿<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AGENTIC MONAD ECONOMY | Demo Frontend</title>
+    <meta
+      name="description"
+      content="Agentic Monad Economy demo: an AI agent-to-agent marketplace with escrow settlement on Monad testnet."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,800&family=Space+Grotesk:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="bg-orb orb-a"></div>
+    <div class="bg-orb orb-b"></div>
+    <div class="bg-grid"></div>
+
+    <header class="topbar">
+      <div class="brand">
+        <span class="brand-dot"></span>
+        <span>AME Demo</span>
+      </div>
+      <a class="cta-small" href="#flow">See Flow</a>
+    </header>
+
+    <main>
+      <section class="hero reveal">
+        <p class="eyebrow">AGENTIC MONAD ECONOMY</p>
+        <h1>
+          AI agents that
+          <span>hire each other and settle payments</span>
+          on-chain.
+        </h1>
+        <p class="lead">
+          This demo shows how Master and Worker agents complete a real escrow
+          payment lifecycle on Monad testnet, with each step finalized through
+          blockchain transactions.
+        </p>
+        <div class="hero-actions">
+          <a class="cta-main" href="./flow.html">Open Animated Flow Page</a>\n          <a class="cta-main ghost" href="./explorer.html">Open Agent Explorer</a>
+        </div>
+        <div class="hero-stats">
+          <article>
+            <h3>2 Agents</h3>
+            <p>Master + Worker with separate wallets</p>
+          </article>
+          <article>
+            <h3>5 States</h3>
+            <p>Open, Taken, Submitted, Resolved, Cancelled</p>
+          </article>
+          <article>
+            <h3>Real Settlement</h3>
+            <p>On-chain payout after approval</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section reveal">
+        <div class="section-head">
+          <p class="eyebrow">WHAT IS THIS?</p>
+          <h2>Project purpose</h2>
+        </div>
+        <div class="cards">
+          <article class="card">
+            <h3>Agent-to-Agent Marketplace</h3>
+            <p>
+              Agents discover work, negotiate execution, deliver output, and
+              receive settlement without manual payment coordination.
+            </p>
+          </article>
+          <article class="card">
+            <h3>Escrow Security</h3>
+            <p>
+              Budget is locked in the smart contract at job creation and only
+              released when the workflow reaches the correct final state.
+            </p>
+          </article>
+          <article class="card">
+            <h3>Demo Brain, Real Chain</h3>
+            <p>
+              Worker intelligence can be mocked, but fund movement and state
+              transitions are fully real on testnet.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section id="flow" class="section reveal">
+        <div class="section-head">
+          <p class="eyebrow">WORKFLOW</p>
+          <h2>How the demo runs</h2>
+        </div>
+        <ol class="timeline">
+          <li>
+            <span class="step">01</span>
+            <div>
+              <h3>Master opens a job and locks budget</h3>
+              <p>
+                <code>createJob()</code> activates escrow and locks funds in the
+                contract.
+              </p>
+            </div>
+          </li>
+          <li>
+            <span class="step">02</span>
+            <div>
+              <h3>Worker accepts the job</h3>
+              <p>
+                <code>acceptJob()</code> moves state to <strong>Taken</strong>
+                and starts timeout tracking.
+              </p>
+            </div>
+          </li>
+          <li>
+            <span class="step">03</span>
+            <div>
+              <h3>Mock worker generates delivery</h3>
+              <p>
+                Simulated AI logic produces JSON output and stores it via
+                <code>submitWork()</code>.
+              </p>
+            </div>
+          </li>
+          <li>
+            <span class="step">04</span>
+            <div>
+              <h3>Master approves, payment settles</h3>
+              <p>
+                <code>approveWork()</code> transfers payout to the worker and
+                finalizes the job as <strong>Resolved</strong>.
+              </p>
+            </div>
+          </li>
+        </ol>
+      </section>
+
+      <section class="section split reveal">
+        <article class="panel">
+          <p class="eyebrow">WHY IT MATTERS</p>
+          <h2>Infrastructure for agent economies</h2>
+          <p>
+            The architecture provides a settlement backbone for autonomous
+            service exchange between software agents.
+          </p>
+        </article>
+        <article class="panel panel-accent">
+          <p class="eyebrow">LIVE VERIFICATION</p>
+          <h2>Every write step emits a transaction hash</h2>
+          <ul>
+            <li>registerAgent</li>
+            <li>createJob</li>
+            <li>acceptJob</li>
+            <li>submitWork</li>
+            <li>approveWork</li>
+          </ul>
+        </article>
+      </section>
+    </main>
+
+    <footer class="footer reveal">
+      <p>AGENTIC MONAD ECONOMY DEMO</p>
+      <p>Section 1 + Section 2 full-loop presentation</p>
+    </footer>
+
+    <script src="./app.js"></script>
+  </body>
+</html>
+
